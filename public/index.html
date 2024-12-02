@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Clientes</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+        #map { height: 100vh; }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        const map = L.map('map').setView([10.500, -66.917], 8);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19
+        }).addTo(map);
+
+        const updateMap = () => {
+            fetch('/ping-clients')
+                .then(response => response.json())
+                .then(clients => {
+                    clients.forEach(client => {
+                        const markerColor = client.conectado ? 'blue' : 'red';
+                        const marker = L.circleMarker([client.coordenadas.lat, client.coordenadas.lng], {
+                            color: markerColor,
+                            radius: 10
+                        }).addTo(map);
+
+                        marker.bindPopup(`<b>${client.nombreCliente}</b><br>${client.sede}<br>Status: ${client.conectado ? 'CONECTADO' : 'DESCONECTADO'}`);
+                    });
+                });
+        };
+
+        updateMap();
+        setInterval(updateMap, 5 * 60 * 1000); // Actualizar el mapa cada 5 minutos
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Interactivo de Venezuela</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map { height: 600px; width: 100%; }
+        .controls { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Mapa Interactivo de Venezuela</h1>
+    <div class="controls">
+        <select id="capitales"></select>
+        <button onclick="irCapitalAnterior()">Anterior</button>
+        <button onclick="irCapitalSiguiente()">Siguiente</button>
+    </div>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <!--s   // Suponiendo que tienes un elemento de icono con la clase 'your-icon'  -->
+<!--const iconElement = document.querySelector('.leaflet-marker-icon');  -->
+
+<!--// Ocultar el icono  -->
+<!--iconElement.style.display = 'none';  -->
+    <script src="app.js"></script>
+</body>
+</html>
